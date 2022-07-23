@@ -8,12 +8,6 @@ package tech.odes.rush.api.spark.vertex;
  * C: data cell or abstraction of data model.
  */
 public interface Vertex<E, C> {
-    /**
-     * vertex unique identification or data source endpoint name
-     *
-     * @return
-     */
-    String name();
 
     /**
      * import data source, it means to write data to the data source.

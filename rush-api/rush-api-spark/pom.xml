@@ -11,4 +11,22 @@
 
     <artifactId>rush-api-spark</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>tech.odes.rush</groupId>
+            <artifactId>rush-api-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_${scala.binary.version}</artifactId>
+            <scope>${spark.scope}</scope>
+        </dependency>
+    </dependencies>
+
 </project>
