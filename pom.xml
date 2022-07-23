@@ -4,13 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tech.odes</groupId>
+    <groupId>tech.odes.rush</groupId>
     <artifactId>Rush</artifactId>
     <packaging>pom</packaging>
-    <version>${env.project.version}</version>
+    <version>${revision}</version>
+
+    <modules>
+        <module>rush-api</module>
+        <module>rush-core</module>
+        <module>rush-common</module>
+        <module>rush-util</module>
+        <module>rush-topology</module>
+    </modules>
 
     <name>Rush Parent POM</name>
-    <url>https://github.com/bebee4java/ides</url>
+    <url>https://github.com/AirToSupply/Rush</url>
     <description>Multi engine data open sharing and data topology.</description>
 
     <licenses>
@@ -30,7 +38,7 @@
     </developers>
 
     <properties>
-        <env.project.version>0.0.1</env.project.version>
+        <revision>0.0.1</revision>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
