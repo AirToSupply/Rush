@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>tech.odes</groupId>
+    <artifactId>Rush</artifactId>
+    <packaging>pom</packaging>
+    <version>${env.project.version}</version>
+
+    <name>Rush Parent POM</name>
+    <url>https://github.com/bebee4java/ides</url>
+    <description>Multi engine data open sharing and data topology.</description>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>AirToSupply</id>
+            <name>AirToSupply</name>
+            <email>airtosupply@126.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <env.project.version>0.0.1</env.project.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <java.version>1.8</java.version>
+
+        <scala.version>2.12.8</scala.version>
+        <scala.binary.version>2.12</scala.binary.version>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven-antrun.version>1.8</maven-antrun.version>
+        <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
+
+        <scope>provided</scope>
+        <spark.scope>provided</spark.scope>
+        <flink.scope>provided</flink.scope>
+
+        <plugin.maven.scala.version>3.1.3</plugin.maven.scala.version>
+
+        <hadoop.client.version>2.10.1</hadoop.client.version>
+        <hadoop.big.version>2.10</hadoop.big.version>
+
+        <spark.version>3.1.1</spark.version>
+        <spark.big.version>3.1</spark.big.version>
+
+        <flink.version>1.13.6</flink.version>
+        <flink.big.version>1.13</flink.big.version>
+
+        <hive.exec.version>2.3.9</hive.exec.version>
+
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons.logging.version>1.2</commons.logging.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
+        <commons.cli.version>1.4</commons.cli.version>
+        <commons.configuration.version>1.7</commons.configuration.version>
+        <commons.digester.version>1.8.1</commons.digester.version>
+
+        <codehaus.jackson.version>1.9.13</codehaus.jackson.version>
+
+        <log4j-core.version>2.17.1</log4j-core.version>
+        <slf4j.version>1.7.25</slf4j.version>
+
+        <guava.version>19.0</guava.version>
+
+        <project.root.dir>${basedir}</project.root.dir>
+        <session.root.dir>${user.dir}</session.root.dir>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <!-- This should be at top, it makes maven try the central repo first and then others and hence faster dep resolution -->
+            <name>Maven Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.binary.version}</artifactId>
+            <version>3.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- scala lang-->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-compiler</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <!-- hadoop -->
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+                <version>${hadoop.client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>guava</artifactId>
+                        <groupId>com.google.guava</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- spark -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>antlr4-runtime</artifactId>
+                        <groupId>org.antlr</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+
+            <!-- flink -->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-java</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-common</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-api-java-bridge_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-optimizer_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-clients_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+                <scope>${flink.scope}</scope>
+            </dependency>
+
+            <!-- hive -->
+            <dependency>
+                <groupId>org.apache.hive</groupId>
+                <artifactId>hive-exec</artifactId>
+                <version>${hive.exec.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.pentaho</groupId>
+                        <artifactId>pentaho-aggdesigner-algorithm</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-1.2-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apapche.hadoop</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.github.joshelser</groupId>
+                        <artifactId>dropwizard-metrics-hadoop-metrics2-reporter</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.zookeeper</groupId>
+                        <artifactId>zookeeper</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-yarn-server-resourcemanager</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-hdfs</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons.logging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons.beanutils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-cli</groupId>
+                <artifactId>commons-cli</artifactId>
+                <version>${commons.cli.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>${commons.configuration.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>${commons.digester.version}</version>
+            </dependency>
+
+            <!-- jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-scala_${scala.binary.version}</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- log -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <!-- 项目版本控制 -->
+        <!--
+        <profile>
+            <id>dev-version</id>
+            <properties>
+                <env.project.version>1.0.0-dev</env.project.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>publish-version</id>
+            <properties>
+                <env.project.version>1.0.0</env.project.version>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        -->
+    </profiles>
+
+    <build>
+        <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources-${mode}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <configuration>
+                    <args>
+                        <arg>
+                            -g:vars
+                        </arg>
+                    </args>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-source-jar</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                            <goal>test-jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- java/scala compiler (Start) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
