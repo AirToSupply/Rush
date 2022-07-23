@@ -18,4 +18,14 @@
         <module>rush-api-flink</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>tech.odes.rush</groupId>
+                <artifactId>rush-api-base</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>
