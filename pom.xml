@@ -15,6 +15,7 @@
         <module>rush-common</module>
         <module>rush-util</module>
         <module>rush-topology</module>
+        <module>external/rush-topology-spark-bootstrap</module>
     </modules>
 
     <name>Rush Parent POM</name>
