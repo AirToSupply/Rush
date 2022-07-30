@@ -66,6 +66,11 @@
             <artifactId>rush-edge-spark</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>tech.odes.rush</groupId>
+            <artifactId>rush-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
