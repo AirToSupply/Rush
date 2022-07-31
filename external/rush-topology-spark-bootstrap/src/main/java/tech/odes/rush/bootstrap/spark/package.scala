@@ -24,8 +24,6 @@ package object spark {
 
   def defaultSparkSession(appName: String): SparkSession = buildSparkSession(appName, defaultConf)
 
-  def buildSparkSession(appName: String) = buildSparkSession(appName, null)
-
   def buildSparkSession(appName: String, additionalConfigs: util.Map[String, String]): SparkSession = {
     val builder = SparkSession.builder.appName(appName)
     builder.getOrCreate
