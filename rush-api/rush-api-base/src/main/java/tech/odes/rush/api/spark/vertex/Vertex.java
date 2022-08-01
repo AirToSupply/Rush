@@ -27,5 +27,5 @@ public interface Vertex<E, C> {
      *
      * @return
      */
-    E out(E env, C cell);
+    C out(E env, C cell);
 }
