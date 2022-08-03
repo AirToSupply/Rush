@@ -6,6 +6,10 @@ class RushException(message: String, cause: Throwable) extends Exception(message
   def this(message: String) = this(message, null)
 }
 
+class RushRuntimeException(message: String, cause: Throwable) extends RuntimeException(message, cause) {
+  def this(message: String) = this(message, null)
+}
+
 object Exceptions {
   def formatException(e: Exception) = {
     (e.toString.split("\n") ++ e.getStackTrace.map(f => "\tat " + f.toString)).mkString("\n")
