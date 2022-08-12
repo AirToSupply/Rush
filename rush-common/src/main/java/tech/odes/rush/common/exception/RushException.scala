@@ -2,11 +2,7 @@ package tech.odes.rush.common.exception
 
 import scala.collection.mutable.ArrayBuffer
 
-class RushException(message: String, cause: Throwable) extends Exception(message, cause) {
-  def this(message: String) = this(message, null)
-}
-
-class RushRuntimeException(message: String, cause: Throwable) extends RuntimeException(message, cause) {
+class RushException(message: String, cause: Throwable) extends RuntimeException(message, cause) {
   def this(message: String) = this(message, null)
 }
 

@@ -1,7 +1,7 @@
 package tech.odes.rush.config;
 
 import org.apache.commons.lang3.StringUtils;
-import tech.odes.rush.common.exception.RushRuntimeException;
+import tech.odes.rush.common.exception.RushException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,7 +28,7 @@ public class CheckConfigUtil {
     public static void assertAllExists(Map config, String... params) {
         CheckResult checkResult = checkAllExists(config, params);
         if (!checkResult.isSuccess()) {
-            throw new RushRuntimeException(checkResult.getMsg());
+            throw new RushException(checkResult.getMsg());
         }
     }
 
@@ -49,7 +49,7 @@ public class CheckConfigUtil {
     public static void assertAllNotEmpty(String... params) {
         CheckResult checkResult = checkAllNotEmpty(params);
         if (!checkResult.isSuccess()) {
-            throw new RushRuntimeException(checkResult.getMsg());
+            throw new RushException(checkResult.getMsg());
         }
     }
 
