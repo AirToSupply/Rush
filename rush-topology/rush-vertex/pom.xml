@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>rush-vertex-spark</module>
+        <module>../../plugins/spark/vertex/lakehouse/rush-vertex-spark-hudi</module>
     </modules>
 
 

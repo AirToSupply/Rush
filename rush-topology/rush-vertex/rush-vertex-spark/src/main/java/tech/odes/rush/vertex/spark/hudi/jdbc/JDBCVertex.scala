@@ -1,4 +1,4 @@
-package tech.odes.rush.vertex.spark.jdbc
+package tech.odes.rush.vertex.spark.hudi.jdbc
 
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.DataFrame
