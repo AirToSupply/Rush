@@ -57,14 +57,10 @@ You need to specify the four parameters partitionColumn, lowerBound, upperBound,
 
 （2）Which domestic databases are currently supported？
 
-Generally speaking, any database or engine with JDBC protocol can collect dataset.
+Generally speaking, any database or engine with JDBC protocol can collect dataset. For example, dameng databases are supported. If you operate data by spark engine, need to put [dameng JDBC driver jar file](https://mvnrepository.com/artifact/com.dameng/DmJdbcDriver18) under path of $SPARK_HOME/jars.
 
-Currently, only dameng databases are supported. At this time, you only need to specify '--dialect dm' in the startup command. More domestic databases will be supported in the future.
-
-Here are some blogs about dameng database for reference：
+Here are some blogs about **dameng** database for reference：
 
 a. [Java JDBC operation dameng database](https://eco.dameng.com/docs/zh-cn/app-dev/java-jdbc.html)
 
 b. [Get started quickly with dameng database](https://eco.dameng.com/docs/zh-cn/start/index.html)
-
-c. [Dameng database driver dependency](https://mvnrepository.com/artifact/com.dameng/DmJdbcDriver18)
