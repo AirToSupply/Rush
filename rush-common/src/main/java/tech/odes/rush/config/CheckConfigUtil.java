@@ -82,6 +82,12 @@ public class CheckConfigUtil {
         return StringUtils.isBlank(param);
     }
 
+    public static void assertEmptyParam(String param, String error) {
+        if (isEmptyParam(param)) {
+            throw new RushException(error);
+        }
+    }
+
     public static CheckResult mergeCheckResults(CheckResult... checkResults) {
         List<CheckResult> notPassConfig = Arrays.stream(checkResults)
             .filter(item -> !item.isSuccess()).collect(Collectors.toList());

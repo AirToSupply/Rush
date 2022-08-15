@@ -15,7 +15,7 @@ JDBC represents most common relational databases (such as MySQL, Oracle and MSSQ
 
 ### **Configuration**
 
-For the attachment parameters of mongodb, please refer to ：[JDBC configuration](https://github.com/apache/spark/blob/master/sql/core/src/main/scala/org/apache/spark/sql/execution/datasources/jdbc/JDBCOptions.scala). 
+For the attachment parameters of jdbc, please refer to ：[JDBC configuration](https://github.com/apache/spark/blob/master/sql/core/src/main/scala/org/apache/spark/sql/execution/datasources/jdbc/JDBCOptions.scala). 
 
 Some important configurations are as follows：
 
