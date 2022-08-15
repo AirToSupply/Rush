@@ -13,7 +13,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>rush-vertex-spark</module>
+        <!-- spark -->
         <module>../../plugins/spark/vertex/lakehouse/rush-vertex-spark-hudi</module>
+        <module>../../plugins/spark/vertex/file/rush-vertex-spark-excel</module>
+        <!-- flink -->
     </modules>
 
 
