@@ -29,7 +29,7 @@ class CSVVertex extends SparkVertex with Logging {
     options = options.updated(CSVVertex.CSV_OPTION_INFER_SCHEMA,
       options.getOrElse(CSVVertex.CSV_OPTION_INFER_SCHEMA, CSVVertex.CSV_OPTION_INFER_SCHEMA_DEFAULT_VAL))
 
-    env.spark.read.format(name).options(env.config).csv(env.path)
+    env.spark.read.options(env.config).csv(env.path)
   }
 }
 
