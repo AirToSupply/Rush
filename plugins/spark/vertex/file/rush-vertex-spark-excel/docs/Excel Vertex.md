@@ -27,7 +27,7 @@ Some important configurations are as follows：
 | **Property Name** | **Description**                                                  | **Require** | **Default** | **Read** | **Wriite** |
 | --------------- | ------------------------------------------------------------ | -------- | -------- | --------------- | --------------- |
 | header | Have header line when reading and writing.<br />**Note**: it is not recommended to set it to false, because it will prevent data from entering the other storages. |  | true | ✅ | ✅ |
-| inferSchema | If true, the input data structure is automatically inferred from the data. |  | false | ✅ |   |
+| inferSchema | If true, the input data structure is automatically inferred from the data. |  | false(official)<br/>true(rush) | ✅ |   |
 | dataAddress | Data address, default to everything. By default, the reading and writing starts from A1 on the first sheet page. |  | A1 | ✅ |             |
 | treatEmptyValuesAsNulls | Treat empty values as null. |  | true | ✅ |   |
 | setErrorCellsToFallbackValues | Convert the error cell to null . If true, any ERROR cell value (such as #N/A ) will be converted to a zero value of the column data type. | | false | ✅ | |
