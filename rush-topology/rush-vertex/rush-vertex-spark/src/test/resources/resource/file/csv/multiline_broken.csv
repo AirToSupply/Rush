@@ -1,0 +1,4 @@
+id||text%1||Sets the string that indicates a timestamp format.
+Sets the string that indicates a timestamp without timezone format.
+Defines the maximum number of characters allowed for any given value being read. By default, it is -1 meaning unlimited length%2||Infers the input schema automatically from data. It requires one extra pass over the data. CSV built-in functions ignore this option.
+Sets a separator for each field and value. This separator can be one or more characters.
