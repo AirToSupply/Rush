@@ -33,11 +33,6 @@ Some important configurations are as follows：
 | maxCharsPerColumn | Defines the maximum number of characters allowed for any given value being read. By default, it is -1 meaning unlimited length |  | -1 | ✅ |  |
 | ignoreLeadingWhiteSpace | A flag indicating whether or not leading whitespaces from values being read/written should be skipped. |  | `false` (for reading), `true` (for writing) | ✅ | ✅ |
 | ignoreTrailingWhiteSpace | A flag indicating whether or not trailing whitespaces from values being read/written should be skipped. |  | `false` (for reading), `true` (for writing) | ✅ | ✅ |
-| sessionInitStatement |  |  |  | ✅ |  |
-| customSchema |  |  |  | ✅ |  |
-| pushDownPredicate |  |  |  | ✅ |  |
-
-You can refer to spark guide document about jdbc of [Data Source Option]((https://spark.apache.org/docs/latest/sql-data-sources-jdbc.html)).
 
 
 
