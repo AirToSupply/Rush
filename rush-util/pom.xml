@@ -11,5 +11,19 @@
 
     <artifactId>rush-util</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+        </dependency>
+
+        <!-- rush -->
+        <dependency>
+            <groupId>tech.odes.rush</groupId>
+            <artifactId>rush-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
