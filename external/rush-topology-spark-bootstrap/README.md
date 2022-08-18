@@ -11,7 +11,6 @@
 
 
 
-
 ### Features
 
 ​		Through Java SPI, the mixed computation of heterogeneous data sources is completed based on pluggable topology operators（vertex plugins and edge plugins）.
@@ -20,11 +19,11 @@
 
 | Vertex name                                                  | Vertex type | Build-in | Vertex export | Vertex import |
 | ------------------------------------------------------------ | ----------- | -------- | ------------- | ------------- |
-| [jdbc](../../rush-topology/rush-vertex/rush-vertex-spark/docs/jdbc/JDBC Vertex.md) | JDBC        | ✅        | ✅             | Doing         |
-| [hudi](../../plugins/spark/vertex/lakehouse/rush-vertex-spark-hudi/docs/Apache Hudi Vertex.md) | LakeHouse   |          | ✅             | ✅             |
-| [excel](../../plugins/spark/vertex/file/rush-vertex-spark-excel/docs/Excel Vertex.md) | File        |          | ✅             |               |
-| [csv](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/CSV Vertex.md) | File        | ✅        | ✅             |               |
-| [text](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/Text Vertex.md) | File        | ✅        | ✅             |               |
+| [jdbc](../../rush-topology/rush-vertex/rush-vertex-spark/docs/jdbc/vertex_jdbc.md) | JDBC        | ✅        | ✅             | Doing         |
+| [hudi](../../plugins/spark/vertex/lakehouse/rush-vertex-spark-hudi/docs/vertex_hudi.md) | LakeHouse   |          | ✅             | ✅             |
+| [excel](../../plugins/spark/vertex/file/rush-vertex-spark-excel/docs/vertex_excel.md) | File        |          | ✅             |               |
+| [csv](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/vertex_csv.md) | File        | ✅        | ✅             |               |
+| [text](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/vertex_text.md) | File        | ✅        | ✅             |               |
 | es                                                           | Doc         |          | doing         |               |
 | mongo                                                        | Doc         |          | doing         |               |
 | greenplum                                                    | HTAP        |          | doing         | doing         |
