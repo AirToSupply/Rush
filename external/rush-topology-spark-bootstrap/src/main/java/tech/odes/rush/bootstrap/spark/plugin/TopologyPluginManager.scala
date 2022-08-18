@@ -8,7 +8,7 @@ import scala.collection.JavaConverters._
 import tech.odes.rush.api.spark.vertex.SparkVertex
 import tech.odes.rush.common.exception.RushException
 
-object PluginManager {
+object TopologyPluginManager {
   def vertexs = {
     ServiceLoader.load(classOf[SparkVertex]).asScala.map(vertex => (vertex.name -> vertex)).toMap
   }

@@ -32,11 +32,17 @@ public class DFSPropertiesConfiguration {
         this.rootFile = rootFile;
         this.props = defaults;
         this.visitedFiles = new HashSet<>();
-        visitFile(rootFile);
+        if (rootFile != null) {
+            visitFile(rootFile);
+        }
     }
 
     public DFSPropertiesConfiguration(FileSystem fs, Path rootFile) {
         this(fs, rootFile, new TypedProperties());
+    }
+
+    public DFSPropertiesConfiguration(TypedProperties defaults) {
+        this(null, null, defaults);
     }
 
     public DFSPropertiesConfiguration() {
@@ -99,6 +105,20 @@ public class DFSPropertiesConfiguration {
             LOG.warn("Unexpected error read props file at :" + cfgPath, e);
         }
 
+        try {
+            if (!overriddenProps.isEmpty()) {
+                LOG.info("Adding overridden properties to file properties.");
+                conf.addProperties(new BufferedReader(new StringReader(String.join("\n", overriddenProps))));
+            }
+        } catch (IOException ioe) {
+            throw new RushException("Unexpected error adding config overrides", ioe);
+        }
+
+        return conf;
+    }
+
+    public static DFSPropertiesConfiguration readProperties(TypedProperties props, List<String> overriddenProps) {
+        DFSPropertiesConfiguration conf = new DFSPropertiesConfiguration(props);
         try {
             if (!overriddenProps.isEmpty()) {
                 LOG.info("Adding overridden properties to file properties.");

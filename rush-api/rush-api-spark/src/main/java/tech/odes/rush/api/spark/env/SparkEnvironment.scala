@@ -6,7 +6,7 @@ class SparkEnvironment {
   private var __spark: SparkSession = null
   private var __path: String = null
   private var __config: Map[String, String] = Map.empty
-  private var __saveMode: SaveMode = SaveMode.Append
+  private var __saveMode: String = "append"
 
   def spark = __spark
   def path = __path
@@ -21,7 +21,7 @@ class SparkEnvironment {
   def this(spark: SparkSession,
            path: String,
            config: Map[String, String],
-           saveMode: SaveMode) {
+           saveMode: String) {
     this(spark)
     this.__path = path
     this.__config = config
@@ -31,12 +31,12 @@ class SparkEnvironment {
   def this(spark: SparkSession,
            path: String,
            config: Map[String, String]) {
-    this(spark, path, config, SaveMode.Append)
+    this(spark, path, config, "append")
   }
 
   def this(spark: SparkSession,
            config: Map[String, String]) {
-    this(spark, null, config, SaveMode.Append)
+    this(spark, null, config, "append")
   }
 }
 
@@ -48,7 +48,7 @@ object SparkEnvironment {
     private var __spark: SparkSession = null
     private var __path: String = null
     private var __config: Map[String, String] = Map.empty
-    private var __saveMode: SaveMode = SaveMode.Append
+    private var __saveMode: String = "append"
 
     def spark(spark: SparkSession): Builder = {
       this.__spark = spark
@@ -65,7 +65,7 @@ object SparkEnvironment {
       this
     }
 
-    def saveMode(saveMode: SaveMode): Builder = {
+    def saveMode(saveMode: String): Builder = {
       this.__saveMode = saveMode
       this
     }

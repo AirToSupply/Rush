@@ -11,7 +11,17 @@
 
     <artifactId>rush-util</artifactId>
 
+    <properties>
+        <jackson.version>2.10.1</jackson.version>
+    </properties>
+
     <dependencies>
+        <!-- scala -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -22,6 +32,18 @@
             <groupId>tech.odes.rush</groupId>
             <artifactId>rush-common</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-scala_${scala.binary.version}</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 
