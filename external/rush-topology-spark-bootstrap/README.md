@@ -6,7 +6,7 @@
 
 | Topological Structure          | Runner Class                                                 |
 | ------------------------------ | ------------------------------------------------------------ |
-| vertex(source) -> vertex(sink) -> [mark](a b.md) | tech.odes.rush.bootstrap.spark.starter.SimpleTopologyBootstrap |
+| vertex(source) -> vertex(sink) -> [mark](a_b.md) | tech.odes.rush.bootstrap.spark.starter.SimpleTopologyBootstrap |
 
 
 
