@@ -35,8 +35,8 @@ class CSVVertex extends SparkVertex with Logging {
 
 object CSVVertex {
   val CSV_OPTION_HEADER = "header"
-  val CSV_OPTION_HEADER_DEFAULT_VAL = true
+  val CSV_OPTION_HEADER_DEFAULT_VAL = "true"
 
   val CSV_OPTION_INFER_SCHEMA = "inferSchema"
-  val CSV_OPTION_INFER_SCHEMA_DEFAULT_VAL = true
+  val CSV_OPTION_INFER_SCHEMA_DEFAULT_VAL = "true"
 }

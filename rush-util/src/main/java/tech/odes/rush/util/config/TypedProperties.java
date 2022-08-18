@@ -3,11 +3,9 @@ package tech.odes.rush.util.config;
 import tech.odes.rush.util.ValidationUtils;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -20,6 +18,7 @@ public class TypedProperties extends Properties implements Serializable {
     }
 
     public TypedProperties(Properties defaults) {
+        super(defaults);
         if (Objects.nonNull(defaults)) {
             for (String key : defaults.stringPropertyNames()) {
                 put(key, defaults.getProperty(key));
@@ -98,5 +97,51 @@ public class TypedProperties extends Properties implements Serializable {
             properties.setProperty(kv[0], kv[1]);
         });
         return properties;
+    }
+
+    public static TypedProperties buildProperties(TypedProperties props, TypedProperties overriddenProps) {
+        overriddenProps.forEach((k, v) -> props.put(k, v));
+        return props;
+    }
+
+    public TypedProperties keyFliter(Predicate<String> predicate) {
+        Properties properties = new Properties();
+        for (String key : defaults.stringPropertyNames()) {
+            if (predicate.test(key)) {
+                properties.setProperty(key, defaults.getProperty(key));
+            }
+        }
+        return new TypedProperties(properties);
+    }
+
+    public TypedProperties keyProcess(Function<String, String> function) {
+        Properties properties = new Properties();
+        for (String key : defaults.stringPropertyNames()) {
+            properties.setProperty(function.apply(key), defaults.getProperty(key));
+        }
+        return new TypedProperties(properties);
+    }
+
+    public TypedProperties valueFliter(Predicate predicate) {
+        Properties properties = new Properties();
+        for (String key : defaults.stringPropertyNames()) {
+            if (predicate.test(defaults.getProperty(key))) {
+                properties.setProperty(key, defaults.getProperty(key));
+            }
+        }
+        return new TypedProperties(properties);
+    }
+
+    public TypedProperties valueProcess(Function<String, String> function) {
+        Properties properties = new Properties();
+        for (String key : defaults.stringPropertyNames()) {
+            properties.setProperty(key, function.apply(defaults.getProperty(key)));
+        }
+        return new TypedProperties(properties);
+    }
+
+    public Map<String, String> toMap() {
+        return defaults.entrySet().stream().collect(
+            Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue().toString()));
     }
 }
