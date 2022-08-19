@@ -25,6 +25,7 @@ For the more parameters of hudi, please refer to class of DataSourceReadOptions.
 
 | **Property Name** | Description                                                  | Require | **Default** |
 | --------------- | ------------------------------------------------------------ | -------- | -------- |
+| path | hoodie table base path | ✅ |  |
 | hoodie.datasource.query.type | Refer to DataSourceReadOptions.QUERY_TYPE.<br/><br/>Whether data needs to be read, in incremental mode (new data since an instantTime) (or) Read Optimized mode (obtain latest view, based on base files) (or) Snapshot mode (obtain latest view, by merging base and (if any) log files).<br/><br/>Values: snapshot\|read_optimized\|incremental |  | snapshot |
 | hoodie.datasource.read.begin.instanttime | Refer to DataSourceReadOptions.BEGIN_INSTANTTIME.<br/><br/>Instant time to start incrementally pulling data from. The instanttime here need not necessarily correspond to an instant on the timeline. New data written with an instant_time > BEGIN_INSTANTTIME are fetched out. For e.g: ‘20170901080000’ will get all new data written after Sep 1, 2017 08:00AM. |  |   |
 | hoodie.datasource.read.end.instanttime | Refer to DataSourceReadOptions.END_INSTANTTIME.<br/><br/>Instant time to limit incrementally fetched data to. New data written with an instant_time <= END_INSTANTTIME are fetched out. |  |             |
@@ -36,6 +37,7 @@ For the more parameters of hudi, please refer to class of DataSourceWriteOptions
 
 | Property Name                               | Description                                                  | Require | **Default**            |
 | ------------------------------------------- | ------------------------------------------------------------ | ------- | ---------------------- |
+| path                                        | hoodie table base path                                       | ✅       |                        |
 | hoodie.datasource.write.operation           | Refer to DataSourceWriteOptions.OPERATION.<br/><br/>Whether to do upsert, insert or bulkinsert for the write operation. Use bulkinsert to load new data into a table, and there after use upsert/insert. bulk insert uses a disk based write path to scale to load large inputs without need to cache it.You also can refer to hudi source code about WriteOperationType. |         | upsert                 |
 | hoodie.datasource.write.recordkey.field     | Refer to KeyGeneratorOptions.RECORDKEY_FIELD_NAME. <br/><br/>Record key field. Value to be used as the `recordKey` component of `HoodieKey`.Actual value will be obtained by invoking .toString() on the field value. Nested fields can be specified using the dot notation eg: `a.b.c` |         | uuid                   |
 | hoodie.datasource.write.precombine.field    | Refer to HoodieWriteConfig.PRECOMBINE_FIELD_NAME.<br/><br/>Field used in preCombining before actual write. When two records have the same key value, we will pick the one with the largest value for the precombine field, determined by Object.compareTo(..). |         | ts                     |
