@@ -21,6 +21,7 @@ Some important configurations are as follows：
 
 | **Property Name** | Description                                                  | Require | **Default** | Read | Write |
 | --------------- | ------------------------------------------------------------ | -------- | -------- | -------- | -------- |
+| path | file storage path | ✅ |  | ✅ | ✅ |
 | lineSep | Defines the line separator that should be used for reading or writing. |  | `\r`, `\r\n`, `\n` (for reading), `\n` (for writing) | ✅ | ✅ |
 | wholetext | If true, read each file from input path(s) as a single row. |  | false | ✅ |  |
 

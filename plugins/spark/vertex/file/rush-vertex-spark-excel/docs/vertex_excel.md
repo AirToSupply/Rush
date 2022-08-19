@@ -26,6 +26,7 @@ Some important configurations are as follows：
 
 | **Property Name** | **Description**                                                  | **Require** | **Default** | **Read** | **Wriite** |
 | --------------- | ------------------------------------------------------------ | -------- | -------- | --------------- | --------------- |
+| path | file storage path | ✅ |  | ✅ | ✅ |
 | header | Have header line when reading and writing.<br />**Note**: it is not recommended to set it to false, because it will prevent data from entering the other storages. |  | true | ✅ | ✅ |
 | inferSchema | If true, the input data structure is automatically inferred from the data. |  | false(official)<br/>true(rush) | ✅ |   |
 | dataAddress | Data address, default to everything. By default, the reading and writing starts from A1 on the first sheet page. |  | A1 | ✅ |             |
