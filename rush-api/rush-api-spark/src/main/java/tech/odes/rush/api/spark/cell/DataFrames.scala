@@ -1,7 +1,10 @@
 package tech.odes.rush.api.spark.cell
 
-import org.apache.spark.sql.{DataFrame, Row}
+import org.apache.spark.sql.{Column, DataFrame, Row}
 import org.apache.spark.sql.types._
+
+case class StructField(name: String, `type`: String)
+case class StructFieldReplaceMetadate(source: StructField, target: StructField)
 
 object DataFrames {
 
@@ -105,4 +108,48 @@ object DataFrames {
         schema.map(it => unwrapRow(row, it._1, it._2))
     }.toList
   }
+
+  def replaceSchema(table: DataFrame, schema: Array[StructFieldReplaceMetadate]) = {
+    val sourceStructType = schema.map(_.source)
+    val targetStructType = schema.map(_.target)
+    val columns = sourceStructType.zipWithIndex.map { e =>
+      e match {
+        case (sourceStructField: StructField, index: Int) =>
+          val targetStructField = targetStructType(index)
+          val col = new Column(sourceStructField.name)
+          col.cast(targetStructField.`type`).as(targetStructField.name)
+      }
+    }
+    table.select(columns: _*)
+  }
+}
+
+/**
+ * schema replace options
+ */
+object DataFrameSchemaOptions {
+  /**
+   * schema change enabled
+   */
+  val OPTION_SCHEMA_REPLACE_ENABLE = "schema.replace.enable"
+  val OPTION_SCHEMA_REPLACE_ENABLE_DEFAULT_VAL = false
+  /**
+   * schema change json content，JSON format is as follows:
+   *
+   * [
+   *    {
+   *      "source": {"name": "_c0", "type": "INT"},
+   *      "target": {"name": "_c01", "type": "STRING"}
+   *    },
+   *    {
+   *      "source": {"name": "_c1", "type": "STRING"},
+   *      "target": {"name": "_c11", "type": "INT"}
+   *    }
+   * ]
+   *
+   * source: source field metadata
+   *
+   * target: target field metadata
+   */
+  val OPTION_SCHEMA_REPLACE = "schema.replace"
 }
