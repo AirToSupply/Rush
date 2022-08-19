@@ -24,6 +24,7 @@ Some important configurations are as follows：
 | header       | For reading, uses the first line as names of columns. For writing, writes the names of columns as the first line. Note that if the given path is a RDD of Strings, this header option will remove all lines same with the header if exists. CSV built-in functions ignore this option. |  | false(official)<br/>true(rush) | ✅ | ✅ |
 | delimiter | column separator |  | , | ✅ | ✅ |
 | quote | Sets a single character used for escaping quoted values where the separator can be part of the value. For reading, if you would like to turn off quotations, you need to set not `null` but an empty string. For writing, if an empty string is set, it uses `u0000` (null character). | | " | ✅ | ✅ |
+| encoding | For reading, decodes the CSV files by the given encoding type. For writing, specifies encoding (charset) of saved CSV files. | | UTF-8 | ✅ | ✅ |
 | inferSchema | Infers the input schema automatically from data. It requires one extra pass over the data. CSV built-in functions ignore this option. |  | false(official)<br/>true(rush) | ✅ |  |
 | sep     | Sets a separator for each field and value. This separator can be one or more characters. |  | , | ✅ | ✅ |
 | lineSep  | Defines the line separator that should be used for parsing/writing. Maximum length is 1 character. CSV built-in functions ignore this option. |  | `\r`, `\r\n` and `\n` (for reading), `\n` (for writing) | ✅ | ✅ |
