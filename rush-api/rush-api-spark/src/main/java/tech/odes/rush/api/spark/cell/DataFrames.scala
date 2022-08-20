@@ -132,7 +132,7 @@ object DataFrameSchemaOptions {
    * schema change enabled
    */
   val OPTION_SCHEMA_REPLACE_ENABLE = "schema.replace.enable"
-  val OPTION_SCHEMA_REPLACE_ENABLE_DEFAULT_VAL = false
+  val OPTION_SCHEMA_REPLACE_ENABLE_DEFAULT_VAL = "false"
   /**
    * schema change json content，JSON format is as follows:
    *

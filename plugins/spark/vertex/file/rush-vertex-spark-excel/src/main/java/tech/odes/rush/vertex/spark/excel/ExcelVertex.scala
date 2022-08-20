@@ -2,10 +2,12 @@ package tech.odes.rush.vertex.spark.excel
 
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.DataFrame
+import tech.odes.rush.api.spark.cell._
 import tech.odes.rush.api.spark.env.SparkEnvironment
 import tech.odes.rush.api.spark.vertex.SparkVertex
 import tech.odes.rush.common.exception.RushException
 import tech.odes.rush.config.CheckConfigUtil
+import tech.odes.rush.util.JacksonUtils
 
 /**
  * Spark Vertex - Excel
@@ -29,14 +31,23 @@ class ExcelVertex extends SparkVertex with Logging {
     options = options.updated(ExcelVertex.EXCEL_OPTION_INFER_SCHEMA,
       options.getOrElse(ExcelVertex.EXCEL_OPTION_INFER_SCHEMA, ExcelVertex.EXCEL_OPTION_INFER_SCHEMA_DEFAULT_VAL))
 
-    env.spark.read.format(name).options(env.config).load(env.path)
+    val table = env.spark.read.format(name).options(env.config).load(env.path)
+
+    val schemaReplaceEnable = env.config.getOrElse(DataFrameSchemaOptions.OPTION_SCHEMA_REPLACE_ENABLE,
+      DataFrameSchemaOptions.OPTION_SCHEMA_REPLACE_ENABLE_DEFAULT_VAL).toBoolean
+    if (schemaReplaceEnable) {
+      DataFrames.replaceSchema(table, JacksonUtils.fromJson[Array[StructFieldReplaceMetadate]](
+        env.config.get(DataFrameSchemaOptions.OPTION_SCHEMA_REPLACE).get))
+    } else {
+      table
+    }
   }
 }
 
 object ExcelVertex {
   val EXCEL_OPTION_HEADER = "header"
-  val EXCEL_OPTION_HEADER_DEFAULT_VAL = true
+  val EXCEL_OPTION_HEADER_DEFAULT_VAL = "true"
 
   val EXCEL_OPTION_INFER_SCHEMA = "inferSchema"
-  val EXCEL_OPTION_INFER_SCHEMA_DEFAULT_VAL = true
+  val EXCEL_OPTION_INFER_SCHEMA_DEFAULT_VAL = "true"
 }
