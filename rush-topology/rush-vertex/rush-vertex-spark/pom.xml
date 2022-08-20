@@ -47,6 +47,11 @@
             <artifactId>rush-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>tech.odes.rush</groupId>
+            <artifactId>rush-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 
