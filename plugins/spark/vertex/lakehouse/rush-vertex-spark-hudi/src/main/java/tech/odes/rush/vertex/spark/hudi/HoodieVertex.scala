@@ -23,21 +23,10 @@ class HoodieVertex extends SparkVertex with Logging {
   override def in(env: SparkEnvironment, cell: DataFrame): Unit = {
     // check hoodie basePath
     CheckConfigUtil.assertEmptyParam(env.path, s"Import Spark Vertex [${name}] option [path] must be specified!")
-    // check hoodie.datasource.write.table.name
-    CheckConfigUtil.assertAllExists(env.config.asJava, Array(HoodieTableConfig.HOODIE_WRITE_TABLE_NAME_KEY): _*)
+    // check hoodie.table.name
+    CheckConfigUtil.assertAllExists(env.config.asJava, Array(HoodieWriteConfig.TBL_NAME.key): _*)
     // check hoodie.datasource.write.recordkey.field
     CheckConfigUtil.assertAllExists(env.config.asJava, Array(KeyGeneratorOptions.RECORDKEY_FIELD_NAME.key): _*)
-    // check hoodie meta hive sync
-    (env.config.get(HiveSyncConfig.HIVE_SYNC_ENABLED.key), env.config.get(HoodieSyncConfig.META_SYNC_ENABLED.key)) match {
-      case (Some(hiveSyncEnabled), Some(metaSyncEnabled))
-        if (hiveSyncEnabled.toBoolean && metaSyncEnabled.toBoolean) =>
-        CheckConfigUtil.assertAllExists(env.config.asJava, Array(
-          HoodieSyncConfig.META_SYNC_DATABASE_NAME.key,
-          HoodieSyncConfig.META_SYNC_TABLE_NAME.key,
-          HiveSyncConfig.HIVE_URL.key,
-          HiveSyncConfig.HIVE_USER.key,
-          HiveSyncConfig.HIVE_PASS.key): _*)
-    }
 
     // optimze
     var options = env.config
@@ -57,14 +46,6 @@ class HoodieVertex extends SparkVertex with Logging {
     options = options.updated(HoodieWriteConfig.BULKINSERT_PARALLELISM_VALUE.key,
       options.getOrElse(HoodieWriteConfig.BULKINSERT_PARALLELISM_VALUE.key,
         HoodieVertex.HOODIE_OPTERATION_SHUFFLE_PARALLELISM))
-    // hoodie.datasource.hive_sync.table
-    (env.config.get(HiveSyncConfig.HIVE_SYNC_ENABLED.key), env.config.get(HoodieSyncConfig.META_SYNC_ENABLED.key)) match {
-      case (Some(hiveSyncEnabled), Some(metaSyncEnabled))
-        if (hiveSyncEnabled.toBoolean && metaSyncEnabled.toBoolean) =>
-        options = options.updated(HoodieSyncConfig.META_SYNC_TABLE_NAME.key,
-          options.getOrElse(HoodieSyncConfig.META_SYNC_TABLE_NAME.key,
-            HoodieTableConfig.HOODIE_WRITE_TABLE_NAME_KEY))
-    }
 
     cell.write.format(name)
       .options(options)

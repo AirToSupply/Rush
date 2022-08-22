@@ -106,7 +106,8 @@ class SimpleTopologyBootstrap(val cfg: SimpleTopologyConfiguration,
           .spark(spark)
           .path(this.vertexSourceProps.getOrElse(
             SimpleTopologyConfiguration.__VERTEX_SOURCE_PROPS_PATH, StringUtils.EMPTY_STRING))
-          .config(this.vertexSourceProps)
+          .config(this.vertexSourceProps
+            - SimpleTopologyConfiguration.__VERTEX_SOURCE_PROPS_PATH)
           .build,
         spark.emptyDataFrame)
 
@@ -118,7 +119,9 @@ class SimpleTopologyBootstrap(val cfg: SimpleTopologyConfiguration,
           .spark(spark)
           .path(this.vertexSinkProps.getOrElse(
             SimpleTopologyConfiguration.__VERTEX_SINK_PROPS_PATH, StringUtils.EMPTY_STRING))
-          .config(this.vertexSinkProps)
+          .config(this.vertexSinkProps
+            - SimpleTopologyConfiguration.__VERTEX_SINK_PROPS_PATH
+            - SimpleTopologyConfiguration.__VERTEX_SINK_PROPS_SAVE_MODE)
           .saveMode(this.vertexSinkProps.getOrElse(
             SimpleTopologyConfiguration.__VERTEX_SINK_PROPS_SAVE_MODE,
             SimpleTopologyConfiguration.__VERTEX_SINK_PROPS_SAVE_MODE_DEFAULT_VAL))
