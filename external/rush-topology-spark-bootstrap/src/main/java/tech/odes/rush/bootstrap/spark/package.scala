@@ -5,7 +5,6 @@ import org.apache.spark.serializer.KryoSerializer
 import org.apache.spark.sql.SparkSession
 
 package object spark {
-
   private def defaultConf = {
     val additionalConfigs = new java.util.HashMap[String, String]
     additionalConfigs.put("spark.serializer", classOf[KryoSerializer].getName)
@@ -20,10 +19,17 @@ package object spark {
     sparkConf
   }
 
-  def defaultSparkSession(appName: String): SparkSession = buildSparkSession(appName, defaultConf)
+  def defaultSparkSession(appName: String, local: Boolean = false) = buildSparkSession(appName, defaultConf, local)
 
-  def buildSparkSession(appName: String, additionalConfigs: java.util.Map[String, String]): SparkSession = {
-    val builder = SparkSession.builder.appName(appName)
+  def buildSparkSession(
+    appName: String,
+    additionalConfigs: java.util.Map[String, String],
+    local: Boolean = false): SparkSession = {
+    val builder = if (local) {
+      SparkSession.builder.appName(appName).master("local[*]")
+    } else {
+      SparkSession.builder.appName(appName)
+    }
     builder.getOrCreate
   }
 }
