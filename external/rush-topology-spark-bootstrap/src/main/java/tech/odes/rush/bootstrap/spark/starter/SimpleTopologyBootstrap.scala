@@ -1,6 +1,6 @@
 package tech.odes.rush.bootstrap.spark.starter
 
-import java.util.Collections
+import java.util.{Collections, Objects}
 
 import com.beust.jcommander.JCommander
 import org.apache.hadoop.conf.Configuration
@@ -11,6 +11,7 @@ import tech.odes.rush.api.spark.env.SparkEnvironment
 
 import scala.collection.JavaConverters._
 import tech.odes.rush.bootstrap.spark.config.SimpleTopologyConfiguration
+import tech.odes.rush.bootstrap.spark._
 import tech.odes.rush.bootstrap.spark.plugin.TopologyPluginManager
 import tech.odes.rush.util.config.{DFSPropertiesConfiguration, TypedProperties}
 import tech.odes.rush.util.{Option, StringUtils}
@@ -47,10 +48,14 @@ class SimpleTopologyBootstrap(val cfg: SimpleTopologyConfiguration,
 
   private def populateTopologyConfig(cfg: SimpleTopologyConfiguration) = {
     // read from properties
-    val config = DFSPropertiesConfiguration.readConfig(
-      FSUtils.getFs(cfg.propsFilePath, spark.sparkContext.hadoopConfiguration),
-      new Path(cfg.propsFilePath),
-      Collections.emptyList()).getConfig
+    val config = if (Objects.isNull(cfg.propsFilePath)) {
+      TypedProperties.EMPTY_PROPERTIES
+    } else {
+      DFSPropertiesConfiguration.readConfig(
+        FSUtils.getFs(cfg.propsFilePath, spark.sparkContext.hadoopConfiguration),
+        new Path(cfg.propsFilePath),
+        Collections.emptyList()).getConfig
+    }
 
     // read vertex source config
     this.vertexSourceProps = DFSPropertiesConfiguration.readProperties(
@@ -68,7 +73,28 @@ class SimpleTopologyBootstrap(val cfg: SimpleTopologyConfiguration,
   }
 
   def print = {
-    logInfo(tech.odes.rush.__RUSH_BANNER)
+    printFrame()
+    logInfo("|  Vertex Options (Source)")
+    printFrame()
+    vertexSourceProps.foreach(option => {
+      logInfo(s"|  ${option._1}: ${option._2}")
+    })
+    printFrame()
+
+    logInfo("|")
+
+    printFrame()
+    logInfo("|  Vertex Options (Sink)")
+    printFrame()
+    vertexSinkProps.foreach(option => {
+      logInfo(s"|  ${option._1}: ${option._2}")
+    })
+    printFrame()
+  }
+
+  private def printFrame(mark: String = "-", count: Int = 120): Unit = {
+    val _c = mark * count
+    logInfo(s"|${_c}")
   }
 
   def run = {
@@ -121,13 +147,14 @@ object SimpleTopologyBootstrap extends Logging {
   }
 
   def main(args: Array[String]): Unit = {
+    logInfo(tech.odes.rush.__RUSH_BANNER)
     val cfg = parse(args)
-    val spark = tech.odes.rush.bootstrap.spark.defaultSparkSession(
+    val spark = defaultSparkSession(
       s"rush-topology-runner [${cfg.vertexSourceType}] => [${cfg.vertexSinkType}]")
     val bootstrap = new SimpleTopologyBootstrap(cfg, spark)
     try {
       bootstrap.print
-      bootstrap.run
+      // bootstrap.run
     } catch {
       case e: Exception => logError("SimpleTopologyBootstrap Failed!", e)
     } finally {

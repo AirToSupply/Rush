@@ -8,9 +8,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-/**
- * Type-aware extension of {@link java.util.Properties}.
- */
 public class TypedProperties extends Properties implements Serializable {
 
     public TypedProperties() {
@@ -89,6 +86,10 @@ public class TypedProperties extends Properties implements Serializable {
         return keyExists(property) ? Double.parseDouble(getProperty(property)) : defaultValue;
     }
 
+    public static TypedProperties EMPTY_PROPERTIES() {
+        return new TypedProperties();
+    }
+
     public static TypedProperties buildProperties(List<String> props) {
         TypedProperties properties = new TypedProperties();
         props.forEach(x -> {
@@ -106,9 +107,9 @@ public class TypedProperties extends Properties implements Serializable {
 
     public TypedProperties keyFliter(Predicate<String> predicate) {
         Properties properties = new Properties();
-        for (String key : defaults.stringPropertyNames()) {
+        for (String key : super.stringPropertyNames()) {
             if (predicate.test(key)) {
-                properties.setProperty(key, defaults.getProperty(key));
+                properties.setProperty(key, super.getProperty(key));
             }
         }
         return new TypedProperties(properties);
@@ -116,17 +117,17 @@ public class TypedProperties extends Properties implements Serializable {
 
     public TypedProperties keyProcess(Function<String, String> function) {
         Properties properties = new Properties();
-        for (String key : defaults.stringPropertyNames()) {
-            properties.setProperty(function.apply(key), defaults.getProperty(key));
+        for (String key : super.stringPropertyNames()) {
+            properties.setProperty(function.apply(key), super.getProperty(key));
         }
         return new TypedProperties(properties);
     }
 
     public TypedProperties valueFliter(Predicate predicate) {
         Properties properties = new Properties();
-        for (String key : defaults.stringPropertyNames()) {
-            if (predicate.test(defaults.getProperty(key))) {
-                properties.setProperty(key, defaults.getProperty(key));
+        for (String key : super.stringPropertyNames()) {
+            if (predicate.test(super.getProperty(key))) {
+                properties.setProperty(key, super.getProperty(key));
             }
         }
         return new TypedProperties(properties);
@@ -134,14 +135,14 @@ public class TypedProperties extends Properties implements Serializable {
 
     public TypedProperties valueProcess(Function<String, String> function) {
         Properties properties = new Properties();
-        for (String key : defaults.stringPropertyNames()) {
-            properties.setProperty(key, function.apply(defaults.getProperty(key)));
+        for (String key : super.stringPropertyNames()) {
+            properties.setProperty(key, function.apply(super.getProperty(key)));
         }
         return new TypedProperties(properties);
     }
 
     public Map<String, String> toMap() {
-        return defaults.entrySet().stream().collect(
+        return super.entrySet().stream().collect(
             Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue().toString()));
     }
 }

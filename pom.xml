@@ -72,7 +72,7 @@
 
         <hive.exec.version>2.3.9</hive.exec.version>
 
-        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons.logging.version>1.2</commons.logging.version>
         <commons.beanutils.version>1.9.4</commons.beanutils.version>
@@ -86,7 +86,7 @@
         <log4j-core.version>2.17.1</log4j-core.version>
         <slf4j.version>1.7.25</slf4j.version>
 
-        <guava.version>19.0</guava.version>
+        <guava.version>14.0.1</guava.version>
 
         <project.root.dir>${basedir}</project.root.dir>
         <session.root.dir>${user.dir}</session.root.dir>
@@ -164,16 +164,21 @@
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-sql_${scala.binary.version}</artifactId>
                 <version>${spark.version}</version>
-                <exclusions>
+                <!--<exclusions>
                     <exclusion>
                         <artifactId>antlr4-runtime</artifactId>
                         <groupId>org.antlr</groupId>
                     </exclusion>
-                </exclusions>
+                </exclusions>-->
             </dependency>
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-hive_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-catalyst_${scala.binary.version}s</artifactId>
                 <version>${spark.version}</version>
             </dependency>
 

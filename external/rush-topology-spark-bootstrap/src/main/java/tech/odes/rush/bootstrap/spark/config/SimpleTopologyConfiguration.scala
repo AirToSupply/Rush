@@ -11,7 +11,7 @@ class SimpleTopologyConfiguration extends Serializable {
   @Parameter(
     names = Array("--props"),
     description = "Path to properties file on localfs or dfs, with configurations for simple rush topology.")
-  var propsFilePath: String = SimpleTopologyConfiguration.DEFAULT_DFS_SOURCE_PROPERTIES
+  var propsFilePath: String = null
 
   @Parameter(
     names = Array("--vertex-source-type"),
@@ -60,10 +60,6 @@ class SimpleTopologyConfiguration extends Serializable {
 }
 
 object SimpleTopologyConfiguration {
-
-  val DEFAULT_DFS_SOURCE_PROPERTIES: String =
-    s"file://${System.getProperty("RUSH_HOME")}/conf/simple-topology.properties"
-
   val __VERTEX_SOURCE_PROPS_PREFIX = "vertex.source."
   val __VERTEX_SOURCE_PROPS_PATH = "path"
 
