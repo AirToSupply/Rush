@@ -154,7 +154,7 @@ object SimpleTopologyBootstrap extends Logging {
     val bootstrap = new SimpleTopologyBootstrap(cfg, spark)
     try {
       bootstrap.print
-      // bootstrap.run
+      bootstrap.run
     } catch {
       case e: Exception => logError("SimpleTopologyBootstrap Failed!", e)
     } finally {
