@@ -1,0 +1,3 @@
+tech.odes.rush.vertex.spark.file.CSVVertex
+tech.odes.rush.vertex.spark.file.TextVertex
+tech.odes.rush.vertex.spark.jdbc.JDBCVertex
