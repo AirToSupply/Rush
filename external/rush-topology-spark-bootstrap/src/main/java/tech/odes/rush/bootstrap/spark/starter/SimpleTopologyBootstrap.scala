@@ -22,8 +22,14 @@ class SimpleTopologyBootstrap(val cfg: SimpleTopologyConfiguration,
                               val conf: Configuration,
                               val props: Option[TypedProperties]) extends Logging {
 
+  /**
+   * Vertex Options (Source)
+   */
   private var vertexSourceProps: Map[String, String] = null
 
+  /**
+   * Vertex Options (Sink)
+   */
   private var vertexSinkProps: Map[String, String] = null
 
   initialize
