@@ -26,7 +26,7 @@
 | [text](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/vertex_text.md) | File        | ✅        | ✅             |               |
 | es                                                           | Doc         |          | doing         |               |
 | mongo                                                        | Doc         |          | doing         |               |
-| [greenplum](../../plugins/spark/vertex/lakehouse/rush-vertex-spark-gpdb/docs/vertex_gpdb.md) | HTAP        |          | doing         | ✅             |
+| [greenplum](../../plugins/spark/vertex/htap/rush-vertex-spark-gpdb/docs/vertex_gpdb.md) | HTAP        |          | doing         | ✅             |
 | doris                                                        | MPP         |          | doing         | doing         |
 
 【TIPS】
