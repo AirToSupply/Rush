@@ -26,7 +26,8 @@
 | [text](../../rush-topology/rush-vertex/rush-vertex-spark/docs/file/vertex_text.md) | File        | ✅        | ✅             |               |
 | es                                                           | Doc         |          | doing         |               |
 | mongo                                                        | Doc         |          | doing         |               |
-| greenplum                                                    | HTAP        |          | doing         | doing         |
+| [greenplum](../../plugins/spark/vertex/lakehouse/rush-vertex-spark-gpdb/docs/vertex_gpdb.md) | HTAP        |          | doing         | ✅             |
+| doris                                                        | MPP         |          | doing         | doing         |
 
 【TIPS】
 
@@ -66,6 +67,13 @@ mvn clean package -pl external/rush-topology-spark-bootstrap -am
 | --vertex-sink        | Any sink configuration that can be set in the properties file (using the CLI parameter --props) can also be passed command line using this parameter. This can be **repeated**. |         |                                                              |
 | --props              | Path to properties file on localfs or dfs, with configurations for simple rush topology. |         | For vertex related parameters, you need to pass **vertex.source.*** or **vertex.sink.*** The prefix is spliced to distinguish the self generated parameters of each plugin type. |
 | --help（-h）         | Option helps                                                 |         |                                                              |
+
+【Internal Options】
+
+| Name     | Description                       | Require | Default |
+| -------- | --------------------------------- | ------- | ------- |
+| path     | refer to spark dataframe path     |         |         |
+| saveMode | refer to spark dataframe saveMode |         | append  |
 
 【Example】
 
