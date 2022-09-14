@@ -16,6 +16,7 @@
         <!-- spark -->
         <module>../../plugins/spark/vertex/lakehouse/rush-vertex-spark-hudi</module>
         <module>../../plugins/spark/vertex/file/rush-vertex-spark-excel</module>
+        <module>../../plugins/spark/vertex/htap/rush-vertex-spark-gpdb</module>
         <!-- flink -->
     </modules>
 
