@@ -33,7 +33,7 @@ These parameters are the parameter options of the current vertex function.
 
 | **Property Name** | Default                                          | Operation | **Description** |
 | --------------- | ------------------------------------------------------------ | -------- | -------- |
-| - | -       | -         | - |
+| direct | false   | Read/Write | If it is set to false, start the gpfdist service for operation. Otherwise, use the jdbc protocol. |
 
 
 
@@ -41,7 +41,7 @@ These parameters are the parameter options of the current vertex function.
 
 ### FAQ
 
-**1.How to build the dependency libraries of g gpdb and spark?**
+**1.How to build the dependency libraries of gpdb and spark?**
 
 The artifactId of the dependency are not changed in the public maven service warehouse, so it needs to be built by itself. Here you can refer to the [official documentation of gpdb](https://network.tanzu.vmware.com/products/vmware-tanzu-greenplum/#/releases/). 
 
@@ -91,3 +91,4 @@ truncate=true
 ```
 
 The default value is `false`; the Connector drops and then re-creates the target table before it writes any data. When `true`, the Connector truncates the target table before writing any data.
+
